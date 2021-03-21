@@ -17,18 +17,18 @@ let sallysInput = [];
 let userInput = [];
 let level = 0;
 
-const sallySays = () => {
-  const sallysNewInput = Math.round(Math.random()*4);
-  sallysInput.push(sallysNewInput);
-  generateFlash(sallysNewInput);
-};
-
 const generateFlash = (num) => {
   document.getElementById(num).classList.add = "flash";
 
   setTimeout(()=>{
     document.getElementById(num).classList.remove = "flash";
   }, 2000)
+};
+
+const sallySays = () => {
+  const sallysNewInput = Math.round(Math.random()*4);
+  sallysInput.push(sallysNewInput);
+  generateFlash(sallysNewInput);
 };
 
 boxes.forEach(box => {
