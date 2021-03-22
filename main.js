@@ -8,7 +8,7 @@
 // 8. if userinput.length === sallys input.length -  1. increment level 2. reassign user array to empty array??? 3. sally generates new input (call number function again)
 
 const boxes = document.querySelectorAll(".box-container__box");
-const heading = document.querySelector("h2");
+const heading = document.querySelector("p");
 
 let sallysInputs = [];
 let userInputs = [];
@@ -20,7 +20,7 @@ const generateFlash = (num) => {
 
   setTimeout(()=>{
     document.getElementById(`${num}`).classList.remove("flash");
-  }, 500)
+  }, 200)
 };
 
 //adds event listeners 
@@ -35,36 +35,42 @@ const detectUserInput = () => {
   });
 };
 
-//generates new sally input & calls 
+//THIS FIXED ITTTTT
+detectUserInput();
+
+//generates new sally input
 const sallySays = () => {
   const sallysNewInput = Math.ceil(Math.random()*4);
-  generateFlash(sallysNewInput);
   sallysInputs.push(sallysNewInput);
-  detectUserInput();
+  level++;
+  heading.innerHTML = `Level: ${level}`;
+  generateFlash(sallysNewInput);
 };
 
-//compares users click with sallys input at same index?
+// compares users input with sallys input (at same index?)
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
-const checkUserInput = (newInput) => {
+const checkUserInput = () => {
+
   let index = (userInputs.length-1);
 
   if (userInputs[index] != sallysInputs[index]){
     console.log("game over");
-    // userInput = [];
-    // sallysInputs = [];
-  } 
-  
-  if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
+    gameOver();
+  } else if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
     console.log("yay");
     userInputs = [];
     setTimeout(()=>{
       sallySays();
-    }, 1000)
+    }, 800)
   }
+};
 
-  console.log(`sallys array: ${sallysInputs}`);
-  console.log(`users array: ${userInputs}`);
-  };
+const gameOver = () => {
+  userInput = [];
+  sallysInputs = [];
+  level = 0;
+  //change page styling
+};
 
 //turn into function called startGame();
 document.body.addEventListener("keydown", ()=>{
