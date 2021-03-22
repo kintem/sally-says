@@ -8,11 +8,7 @@
 // 8. if userinput.length === sallys input.length -  1. increment level 2. reassign user array to empty array??? 3. sally generates new input (call number function again)
 
 const boxes = document.querySelectorAll(".box-container__box");
-const heading = document.querySelector("h2")
-// const redBox = document.getElementById("1");
-// const blueBox = document.getElementById("2");
-// const yellowBox = document.getElementById("3");
-// const greenBox = document.getElementById("4");
+const heading = document.querySelector("h2");
 
 let sallysInputs = [];
 let userInputs = [];
