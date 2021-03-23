@@ -1,6 +1,10 @@
+.game {
+  display: none;
+}
+
 .game-container {
   @extend %flex-shared;
-  height: 600px;
+  height: 500px;
 
   .box-container {
     @extend %flex-shared;
