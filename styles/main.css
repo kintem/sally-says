@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Pacifico&display=swap");
+.game-container .box-container, .game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+  background-color: #111111;
+  height: 100vh;
+}
+
+h1 {
+  font-family: "Pacifico", cursive;
+  font-size: 60px;
+  margin: 10px;
+  color: #9ed359;
+}
+
+p {
+  color: #c0c0c0;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+}
+
+.header__title {
+  margin: 30px 0;
+}
+
+.game-container {
+  height: 600px;
+}
+.game-container .box-container {
+  width: 100%;
+  flex-wrap: wrap;
+}
+.game-container .box-container__box {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  border-radius: 20px;
+}
+.game-container .box-container__box.purple {
+  background-color: #340285;
+}
+.game-container .box-container__box.yellow {
+  background-color: #fabb4f;
+}
+.game-container .box-container__box.blue {
+  background-color: #55b3b1;
+}
+.game-container .box-container__box.pink {
+  background-color: #b31e77;
+}
+.game-container .box-container__box.flash {
+  background-color: #fdf2f2;
+}
+
+@media screen and (min-width: 508px) {
+  .game-container .box-container {
+    width: 80%;
+  }
+  .game-container .box-container__box {
+    width: 180px;
+    height: 180px;
+  }
+}
+@media screen and (min-width: 744px) {
+  .game-container .box-container {
+    width: 60%;
+  }
+  .game-container .box-container__box {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .game-container .box-container {
+    width: 50%;
+  }
+  .game-container .box-container__box {
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+  }
+}

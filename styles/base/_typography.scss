@@ -1,0 +1,12 @@
+h1 {
+  font-family: $heading-font;
+  font-size: 60px;
+  margin: 10px;
+  color: $heading-green;
+}
+
+p {
+  color: $font-grey;
+  font-family: $body-font;
+  text-transform: uppercase;
+}
