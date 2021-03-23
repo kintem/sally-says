@@ -5,19 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles/main.css">
     <title>Sally Says</title>
 </head>
 <body>
-    <h1>Sally Says</h1>
-    <p>Press any key to start</p>
-    <div class="box-container">
-        <div class="box-container__box purple" id="1"></div>
-        <div class="box-container__box yellow" id="2"></div>
-        <div class="box-container__box blue" id="3"></div>
-        <div class="box-container__box pink" id="4"></div>
-    </div>
+    <header class="header">
+        <h1 class="header__title">Sally Says</h1>
+        <p class="header__text">Press any key to start</p>
+    </header>
+    <main class="game-container">
+        <div class="box-container">
+            <div class="box-container__box purple"  id="1"></div>
+            <div class="box-container__box yellow"  id="2"></div>
+            <div class="box-container__box blue"    id="3"></div>
+            <div class="box-container__box pink"    id="4"></div>
+        </div>
+    </main>
     
     <script src="main.js" defer></script>
 </body>

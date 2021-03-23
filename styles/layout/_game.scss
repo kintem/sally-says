@@ -1,0 +1,77 @@
+.game-container {
+  @extend %flex-shared;
+  height: 600px;
+
+  .box-container {
+    @extend %flex-shared;
+    width: 100%;
+    flex-wrap: wrap;
+
+    &__box {
+      width: 150px;
+      height: 150px;
+      margin: 10px;
+      border-radius: 20px;
+    }
+
+    &__box.purple {
+      background-color: $purple;
+    }
+
+    &__box.yellow {
+      background-color: $yellow;
+    }
+
+    &__box.blue {
+      background-color: $blue;
+    }
+
+    &__box.pink {
+      background-color: $pink;
+    }
+
+    &__box.flash {
+      background-color: $white;
+    }
+  }
+}
+
+@media screen and (min-width: 508px) {
+  .game-container {
+    .box-container {
+      width: 80%;
+  
+      &__box {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 744px) {
+  .game-container {
+    .box-container {
+      width: 60%;
+  
+      &__box {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .game-container {
+    .box-container {
+      width: 50%;
+  
+      &__box {
+        width: 200px;
+        height: 200px;
+        margin: 20px;
+      }
+    }
+  }
+}
