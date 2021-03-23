@@ -1,12 +1,40 @@
-h1 {
-  font-family: $heading-font;
-  font-size: 60px;
-  margin: 10px;
-  color: $heading-green;
+.start__heading {
+  @extend %heading-shared;
+  font-size: 10rem;
+  margin: 40px;
+  color: $black;
+  text-shadow:
+  0.2px 0.2px 0px #131313,
+  5px 5px 0px #eb2b6b,
+  7px 7px 0px $yellow, 
+  9px 9px 0px $blue, 
+  11px 11px 0px #017e7f, 
+  13px 13px 0px #052939, 
+  15px 15px 0px #6238fa, 
+  17px 17px 0px $pink, 
+  19px 19px 0px $pink, 
+  21px 21px 0px #eb2b6b;
 }
 
-p {
-  color: $font-grey;
+.game-header__heading {
+  @extend %heading-shared;
+  color: $white;
+  text-shadow:
+  0.2px 0.2px 0px #131313,
+  2px 2px 0px #eb2b6b,
+  3px 3px 0px $yellow, 
+  4px 4px 0px $blue, 
+  5px 5px 0px #017e7f, 
+  6px 6px 0px #052939, 
+  7px 7px 0px #6238fa, 
+  8px 8px 0px $pink, 
+  9px 9px 0px $pink, 
+  10px 10px 0px #eb2b6b;
+}
+
+p, button {
+  color: $black;
   font-family: $body-font;
   text-transform: uppercase;
+  line-height: 1.8;
 }

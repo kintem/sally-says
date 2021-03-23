@@ -7,8 +7,13 @@
 // 7. check user input === sallys input at specific index - if true go to 8, if false change heading to game over and add specific styling to page
 // 8. if userinput.length === sallys input.length -  1. increment level 2. reassign user array to empty array??? 3. sally generates new input (call number function again)
 
+const body = document.querySelector("body");
+const start = document.querySelector(".start");
+const game = document.querySelector(".game");
+const startButton = document.querySelector(".start__button");
 const boxes = document.querySelectorAll(".box-container__box");
-const heading = document.querySelector("p");
+const heading = document.querySelector(".game-header__heading");
+const text = document.querySelector(".game-header__text");
 
 let sallysInputs = [];
 let userInputs = [];
@@ -43,7 +48,7 @@ const sallySays = () => {
   const sallysNewInput = Math.ceil(Math.random()*4);
   sallysInputs.push(sallysNewInput);
   level++;
-  heading.innerHTML = `Level: ${level}`;
+  text.innerHTML = `Level: ${level}`;
   generateFlash(sallysNewInput);
 };
 
@@ -70,9 +75,30 @@ const gameOver = () => {
   sallysInputs = [];
   level = 0;
   //change page styling
+  body.style.backgroundColor = "red";
+  boxes.forEach(box=>{
+    box.style.backgroundColor = "black";
+  })
 };
 
-//turn into function called startGame();
-document.body.addEventListener("keydown", ()=>{
+const startGame = () =>{
+  start.style.display = "none";
+  game.style.display = "contents";
+  body.style.backgroundColor = "black";
+  heading.style.color = "white";
+  text.style.color = "white";
+
+
+  setTimeout(() => {
     sallySays();
-  });
+  }, 800);
+};
+
+startButton.addEventListener("click", ()=>{
+  startGame();
+});
+
+
+// document.body.addEventListener("keydown", ()=>{
+//     sallySays();
+// });
