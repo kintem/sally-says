@@ -12,15 +12,19 @@
     <div class="start">
         <h1 class="start__heading">Sally Says</h1>
         <p class="start__text">Game instructions Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam quis cumque saepe eos dolorum. Facere incidunt distinctio, exercitationem similique quidem.</p>
-        <button class="start__button">Play</button>
+        <div class="button-container">
+            <button class="start__button" id="easy">Easy</button>
+            <button class="start__button" id="hard">Hard</button>
+        </div>
     </div>
     <div class="game">
         <header class="game-header">
             <h1 class="game-header__heading">Sally Says</h1>
-            <p class="game-header__text">Press any key to start</p>
+            <p class="game-header__text">Ready?</p>
         </header>
         <main class="game-container">
             <div class="box-container">
+                <h2 class="game-over-heading">Game Over</h2>
                 <div class="box-container__box purple"  id="1"></div>
                 <div class="box-container__box yellow"  id="2"></div>
                 <div class="box-container__box blue"    id="3"></div>

@@ -1,5 +1,7 @@
 .game {
   display: none;
+  background-color: $black;
+  height: 100vh;
 }
 
 .game-container {
@@ -38,6 +40,20 @@
       background-color: $white;
     }
   }
+}
+
+.game-over {
+  animation: toGreyscale 1s;
+  filter: grayscale(100%);
+  color: #464545;
+}
+
+@keyframes toGreyscale {
+  0%    { -webkit-filter: grayscale(0%); filter: grayscale(0%); }
+  25%   { -webkit-filter: grayscale(25%); filter: grayscale(25%); }
+  50%   { -webkit-filter: grayscale(50%); filter: grayscale(50%); }
+  75%   { -webkit-filter: grayscale(75%); filter: grayscale(75%); }
+  100%  { -webkit-filter: grayscale(100%); filter: grayscale(100%); }
 }
 
 @media screen and (min-width: 508px) {

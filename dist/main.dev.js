@@ -1,20 +1,14 @@
 "use strict";
 
-// 1. sally picks random Number
-// 2. number is added to Array
-// 3. corresponding box flashes
-// 4. add event listeners to all boxes
-// 5. detect user input
-// 6. add user input to user array
-// 7. check user input === sallys input at specific index - if true go to 8, if false change heading to game over and add specific styling to page
-// 8. if userinput.length === sallys input.length -  1. increment level 2. reassign user array to empty array??? 3. sally generates new input (call number function again)
 var body = document.querySelector("body");
 var start = document.querySelector(".start");
+var startButtonEasy = document.querySelector("#easy");
+var startButtonHard = document.querySelector("#hard");
 var game = document.querySelector(".game");
-var startButton = document.querySelector(".start__button");
-var boxes = document.querySelectorAll(".box-container__box");
+var gameOverHeading = document.querySelector(".game-over-heading");
 var heading = document.querySelector(".game-header__heading");
 var text = document.querySelector(".game-header__text");
+var boxes = document.querySelectorAll(".box-container__box");
 var sallysInputs = [];
 var userInputs = [];
 var level = 0; //generates a "flash" on the chosen box
@@ -44,9 +38,9 @@ detectUserInput(); //generates new sally input
 var sallySays = function sallySays() {
   var sallysNewInput = Math.ceil(Math.random() * 4);
   sallysInputs.push(sallysNewInput);
+  generateFlash(sallysNewInput);
   level++;
   text.innerHTML = "Level: ".concat(level);
-  generateFlash(sallysNewInput);
 }; // compares users input with sallys input (at same index?)
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
 
@@ -55,10 +49,10 @@ var checkUserInput = function checkUserInput() {
   var index = userInputs.length - 1;
 
   if (userInputs[index] != sallysInputs[index]) {
-    console.log("game over");
     gameOver();
+    console.log(userInputs);
+    console.log(sallysInputs);
   } else if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
-    console.log("yay");
     userInputs = [];
     setTimeout(function () {
       sallySays();
@@ -67,29 +61,42 @@ var checkUserInput = function checkUserInput() {
 };
 
 var gameOver = function gameOver() {
-  userInput = [];
-  sallysInputs = [];
-  level = 0; //change page styling
+  level = 0;
+  userInputs = [];
+  sallysInputs = []; //styling
 
-  body.style.backgroundColor = "red";
+  gameOverHeading.style.display = "block";
+  heading.classList.add("game-over");
+  game.classList.add("game-over");
   boxes.forEach(function (box) {
-    box.style.backgroundColor = "black";
-  });
+    box.classList.add("game-over");
+  }); //call start screen or restart screen
+
+  setTimeout(function () {
+    start.style.display = "flex";
+    game.style.display = "none";
+  }, 3000);
 };
 
 var startGame = function startGame() {
   start.style.display = "none";
-  game.style.display = "contents";
-  body.style.backgroundColor = "black";
-  heading.style.color = "white";
-  text.style.color = "white";
+  game.style.display = "block";
+  gameOverHeading.style.display = "none";
+  heading.classList.remove("game-over");
+  game.classList.remove("game-over");
+  boxes.forEach(function (box) {
+    box.classList.remove("game-over");
+  });
   setTimeout(function () {
     sallySays();
   }, 800);
-};
+}; //Easy mode
 
-startButton.addEventListener("click", function () {
+
+startButtonEasy.addEventListener("click", function () {
   startGame();
-}); // document.body.addEventListener("keydown", ()=>{
-//     sallySays();
-// });
+}); //Hard mode
+
+startButtonHard.addEventListener("click", function () {
+  startGame();
+});

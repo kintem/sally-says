@@ -1,17 +1,18 @@
 .start {
-  display: flex;
+  @extend %flex-shared;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-
-  &__heading {
-    font-size: 10rem;
-    margin: 40px;
-  }
+  background-color: $green;
+  height: 100%;
 
   &__text {
-    width: 50%;
-    line-height: 1.8;
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 744px) {
+  .start {
+    &__text {
+      width: 50%;
+    }
   }
 }

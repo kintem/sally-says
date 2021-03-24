@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Pacifico&display=swap");
-.game-container .box-container, .game-container {
+@import url("https://fonts.googleapis.com/css2?family=Chango&family=Montserrat:wght@300;400&family=Pacifico&display=swap");
+.game-container .box-container, .game-container, .start {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +8,6 @@
 .game-header__heading, .start__heading {
   font-family: "Pacifico", cursive;
   font-size: 60px;
-  margin: 10px;
 }
 
 * {
@@ -19,12 +18,25 @@
 
 body {
   text-align: center;
-  background-color: #9ed359;
   height: 100vh;
+  background-color: #111111;
+}
+
+p {
+  color: #111111;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+button {
+  font-size: 1.6rem;
+  font-family: "Pacifico", cursive;
+  text-transform: lowercase;
 }
 
 .start__heading {
-  font-size: 10rem;
+  font-size: 4rem;
   margin: 40px;
   color: #111111;
   text-shadow: 0.2px 0.2px 0px #131313, 5px 5px 0px #eb2b6b, 7px 7px 0px #fabb4f, 9px 9px 0px #55b3b1, 11px 11px 0px #017e7f, 13px 13px 0px #052939, 15px 15px 0px #6238fa, 17px 17px 0px #b31e77, 19px 19px 0px #b31e77, 21px 21px 0px #eb2b6b;
@@ -35,43 +47,77 @@ body {
   text-shadow: 0.2px 0.2px 0px #131313, 2px 2px 0px #eb2b6b, 3px 3px 0px #fabb4f, 4px 4px 0px #55b3b1, 5px 5px 0px #017e7f, 6px 6px 0px #052939, 7px 7px 0px #6238fa, 8px 8px 0px #b31e77, 9px 9px 0px #b31e77, 10px 10px 0px #eb2b6b;
 }
 
-p, button {
-  color: #111111;
-  font-family: "Montserrat", sans-serif;
-  text-transform: uppercase;
-  line-height: 1.8;
+.game-header__text {
+  color: #fdf2f2;
 }
 
+.game-over-heading {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  font-size: 8rem;
+  font-family: "Chango", cursive;
+  text-transform: uppercase;
+  color: #fdf2f2;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media screen and (min-width: 744px) {
+  .start__heading {
+    font-size: 7rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .start__heading {
+    font-size: 10rem;
+  }
+}
 .start__button {
   padding: 10px 30px;
   margin: 30px;
   border: none;
   border-radius: 12px;
-  font-size: 14px;
 }
-.start__button:hover {
+.start__button#easy {
+  background-color: #ff69b4;
+}
+.start__button#easy:hover {
   background-color: #111111;
-  color: #fabb4f;
+  color: #ffa500;
+}
+.start__button#hard {
+  background-color: #ffa500;
+}
+.start__button#hard:hover {
+  background-color: #111111;
+  color: #ff69b4;
 }
 
 .start {
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-.start__heading {
-  font-size: 10rem;
-  margin: 40px;
+  background-color: #9ed359;
+  height: 100%;
 }
 .start__text {
-  width: 50%;
-  line-height: 1.8;
+  width: 80%;
 }
 
+@media screen and (min-width: 744px) {
+  .start__text {
+    width: 50%;
+  }
+}
 .game-header__heading {
-  margin: 20px 0 30px;
+  margin-bottom: 30px;
+  padding-top: 10px;
 }
 .game-header__text {
   margin: 20px;
@@ -79,6 +125,8 @@ p, button {
 
 .game {
   display: none;
+  background-color: #111111;
+  height: 100vh;
 }
 
 .game-container {
@@ -110,6 +158,34 @@ p, button {
   background-color: #fdf2f2;
 }
 
+.game-over {
+  animation: toGreyscale 1s;
+  filter: grayscale(100%);
+  color: #464545;
+}
+
+@keyframes toGreyscale {
+  0% {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+  }
+  25% {
+    -webkit-filter: grayscale(25%);
+    filter: grayscale(25%);
+  }
+  50% {
+    -webkit-filter: grayscale(50%);
+    filter: grayscale(50%);
+  }
+  75% {
+    -webkit-filter: grayscale(75%);
+    filter: grayscale(75%);
+  }
+  100% {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
+}
 @media screen and (min-width: 508px) {
   .game-container .box-container {
     width: 80%;
