@@ -8,10 +8,12 @@ const gameOverHeading = document.querySelector(".game-over-heading");
 const heading = document.querySelector(".game-header__heading");
 const text = document.querySelector(".game-header__text");
 
-let array = [1, 2, 3, 4];
+let array = [1, 2, 3, 4, 5, 6];
+let easyArray = array.slice(0, 4);
 let sallysInputs = [];
 let userInputs = [];
 let level = 0;
+let mode = "";
 
 //generates a "flash" on the chosen box
 const generateFlash = (num) => {
@@ -23,8 +25,13 @@ const generateFlash = (num) => {
 };
 
 //generates new sally input
-const sallySays = () => {
-  const sallysNewInput = Math.ceil(Math.random()*4);
+const sallySays = (boxNum) => {
+  if (boxNum > 4) {
+    mode = "hard";
+  } else {
+    mode = "easy";
+  }
+  const sallysNewInput = Math.ceil(Math.random() * boxNum);
   sallysInputs.push(sallysNewInput);
   generateFlash(sallysNewInput);
   level++;
@@ -33,17 +40,20 @@ const sallySays = () => {
 
 // compares users input with sallys input (at same index?)
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
-const checkUserInput = () => {
+const checkUserInput = (mode) => {
   let index = (userInputs.length-1);
 
   if (userInputs[index] != sallysInputs[index]){
     gameOver();
-    console.log(userInputs);
-    console.log(sallysInputs);
+   
   } else if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
     userInputs = [];
     setTimeout(()=>{
-      sallySays();
+      if (mode === "easy") {
+        sallySays(4);
+      } else {
+        sallySays(6);
+      }
     }, 800)
   }
 };
@@ -69,13 +79,13 @@ const gameOver = () => {
 };
 
 
-const detectUserInput = (input) => {
+const detectUserInput = (input, mode) => {
   userInputs.push(input);
   generateFlash(input);
-  checkUserInput(input);
+  checkUserInput(mode);
 };
 
-const renderBoxes = () =>{
+const renderBoxes = (array) =>{
   boxContainer.innerHTML += array.map(num=>{
     let color = "";
     
@@ -92,6 +102,12 @@ const renderBoxes = () =>{
       case 4:
         color = "pink";
         break;
+      case 5:
+        color = "orange";
+        break;
+      case 6:
+        color = "lime";
+        break;
       default:
         // code block
     }
@@ -103,12 +119,16 @@ const renderBoxes = () =>{
   document.querySelectorAll(".box-container__box").forEach(box => {
     box.addEventListener("click", event => {
       const userNewInput = Number(event.target.id);
-      detectUserInput(userNewInput);
+      if (document.querySelector(".lime")){
+        detectUserInput(userNewInput, "hard");
+      } else {
+        detectUserInput(userNewInput, "easy");
+      }
     });
   });
 }
 
-const startEasyGame = () =>{
+const startGame = (mode) =>{
   //reset
   start.style.display = "none";
   game.style.display = "block";
@@ -120,43 +140,37 @@ const startEasyGame = () =>{
     box.classList.remove("game-over");
   })
 
-  //dynamically render boxes
+  //dynamically render boxes CHANGE MODES AFTER GAME OVER
   if (!document.querySelector(".box-container__box")){
-    renderBoxes();
+    if (mode === "easy") {
+      renderBoxes(easyArray);
+    } else {
+      renderBoxes(array);
+    }
+  } else if (document.querySelector(".box-container__box")) {
+    if (mode === "easy" && document.querySelector(".lime")) {
+      document.querySelector(".lime").style.display = "none";
+      document.querySelector(".orange").style.display = "none";
+    } else if (mode === "hard" && !document.querySelector(".lime")) {
+      renderBoxes(array.slice(4, 6));
+    }
   }
 
   setTimeout(() => {
-    sallySays();
+    if (mode === "easy") {
+      sallySays(4);
+    } else {
+      sallySays(6);
+    }
   }, 800);
 };
 
-// const startHardGame = () =>{
-//   //reset
-//   start.style.display = "none";
-//   game.style.display = "block";
-//   gameOverHeading.style.display = "none";
-
-//   heading.classList.remove("game-over");
-//   game.classList.remove("game-over");
-//   boxes.forEach(box=>{
-//     box.classList.remove("game-over");
-//   })
-
-//   //dynamically render boxes
-//   renderBoxes();
-  
-
-//   setTimeout(() => {
-//     sallySays();
-//   }, 800);
-// };
-
 //Easy mode
 startButtonEasy.addEventListener("click", ()=>{
-  startEasyGame();
+  startGame("easy");
 });
 
 //Hard mode
 startButtonHard.addEventListener("click", ()=>{
-  startHardGame();
+  startGame("hard");
 });
