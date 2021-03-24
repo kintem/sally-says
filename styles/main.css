@@ -157,6 +157,12 @@ button {
 .game-container .box-container__box.pink {
   background-color: #b31e77;
 }
+.game-container .box-container__box.orange {
+  background-color: #ff8800;
+}
+.game-container .box-container__box.lime {
+  background-color: #a7d46c;
+}
 .game-container .box-container__box.flash {
   background-color: #fdf2f2;
 }

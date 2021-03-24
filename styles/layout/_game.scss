@@ -36,6 +36,14 @@
       background-color: $pink;
     }
 
+    &__box.orange {
+      background-color: #ff8800;
+    }
+
+    &__box.lime {
+      background-color: $green;
+    }
+
     &__box.flash {
       background-color: $white;
     }

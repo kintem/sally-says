@@ -9,10 +9,12 @@ var boxContainer = document.querySelector(".box-container");
 var gameOverHeading = document.querySelector(".game-over-heading");
 var heading = document.querySelector(".game-header__heading");
 var text = document.querySelector(".game-header__text");
-var array = [1, 2, 3, 4];
+var array = [1, 2, 3, 4, 5, 6];
+var easyArray = array.slice(0, 4);
 var sallysInputs = [];
 var userInputs = [];
-var level = 0; //generates a "flash" on the chosen box
+var level = 0;
+var mode = ""; //generates a "flash" on the chosen box
 
 var generateFlash = function generateFlash(num) {
   document.getElementById("".concat(num)).classList.add("flash");
@@ -22,8 +24,14 @@ var generateFlash = function generateFlash(num) {
 }; //generates new sally input
 
 
-var sallySays = function sallySays() {
-  var sallysNewInput = Math.ceil(Math.random() * 4);
+var sallySays = function sallySays(boxNum) {
+  if (boxNum > 4) {
+    mode = "hard";
+  } else {
+    mode = "easy";
+  }
+
+  var sallysNewInput = Math.ceil(Math.random() * boxNum);
   sallysInputs.push(sallysNewInput);
   generateFlash(sallysNewInput);
   level++;
@@ -32,17 +40,19 @@ var sallySays = function sallySays() {
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
 
 
-var checkUserInput = function checkUserInput() {
+var checkUserInput = function checkUserInput(mode) {
   var index = userInputs.length - 1;
 
   if (userInputs[index] != sallysInputs[index]) {
     gameOver();
-    console.log(userInputs);
-    console.log(sallysInputs);
   } else if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
     userInputs = [];
     setTimeout(function () {
-      sallySays();
+      if (mode === "easy") {
+        sallySays(4);
+      } else {
+        sallySays(6);
+      }
     }, 800);
   }
 };
@@ -65,13 +75,13 @@ var gameOver = function gameOver() {
   }, 3000);
 };
 
-var detectUserInput = function detectUserInput(input) {
+var detectUserInput = function detectUserInput(input, mode) {
   userInputs.push(input);
   generateFlash(input);
-  checkUserInput(input);
+  checkUserInput(mode);
 };
 
-var renderBoxes = function renderBoxes() {
+var renderBoxes = function renderBoxes(array) {
   boxContainer.innerHTML += array.map(function (num) {
     var color = "";
 
@@ -92,6 +102,14 @@ var renderBoxes = function renderBoxes() {
         color = "pink";
         break;
 
+      case 5:
+        color = "orange";
+        break;
+
+      case 6:
+        color = "lime";
+        break;
+
       default: // code block
 
     }
@@ -101,12 +119,17 @@ var renderBoxes = function renderBoxes() {
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.addEventListener("click", function (event) {
       var userNewInput = Number(event.target.id);
-      detectUserInput(userNewInput);
+
+      if (document.querySelector(".lime")) {
+        detectUserInput(userNewInput, "hard");
+      } else {
+        detectUserInput(userNewInput, "easy");
+      }
     });
   });
 };
 
-var startEasyGame = function startEasyGame() {
+var startGame = function startGame(mode) {
   //reset
   start.style.display = "none";
   game.style.display = "block";
@@ -115,38 +138,37 @@ var startEasyGame = function startEasyGame() {
   game.classList.remove("game-over");
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.remove("game-over");
-  }); //dynamically render boxes
+  }); //dynamically render boxes CHANGE MODES AFTER GAME OVER
 
   if (!document.querySelector(".box-container__box")) {
-    renderBoxes();
+    if (mode === "easy") {
+      renderBoxes(easyArray);
+    } else {
+      renderBoxes(array);
+    }
+  } else if (document.querySelector(".box-container__box")) {
+    if (mode === "easy" && document.querySelector(".lime")) {
+      document.querySelector(".lime").style.display = "none";
+      document.querySelector(".orange").style.display = "none";
+    } else if (mode === "hard" && !document.querySelector(".lime")) {
+      renderBoxes(array.slice(4, 6));
+    }
   }
 
   setTimeout(function () {
-    sallySays();
+    if (mode === "easy") {
+      sallySays(4);
+    } else {
+      sallySays(6);
+    }
   }, 800);
-}; // const startHardGame = () =>{
-//   //reset
-//   start.style.display = "none";
-//   game.style.display = "block";
-//   gameOverHeading.style.display = "none";
-//   heading.classList.remove("game-over");
-//   game.classList.remove("game-over");
-//   boxes.forEach(box=>{
-//     box.classList.remove("game-over");
-//   })
-//   //dynamically render boxes
-//   renderBoxes();
-//   setTimeout(() => {
-//     sallySays();
-//   }, 800);
-// };
-//Easy mode
+}; //Easy mode
 
 
 startButtonEasy.addEventListener("click", function () {
-  startEasyGame();
+  startGame("easy");
 }); //Hard mode
 
 startButtonHard.addEventListener("click", function () {
-  startHardGame();
+  startGame("hard");
 });
