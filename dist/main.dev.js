@@ -5,10 +5,11 @@ var start = document.querySelector(".start");
 var startButtonEasy = document.querySelector("#easy");
 var startButtonHard = document.querySelector("#hard");
 var game = document.querySelector(".game");
+var boxContainer = document.querySelector(".box-container");
 var gameOverHeading = document.querySelector(".game-over-heading");
 var heading = document.querySelector(".game-header__heading");
 var text = document.querySelector(".game-header__text");
-var boxes = document.querySelectorAll(".box-container__box");
+var array = [1, 2, 3, 4];
 var sallysInputs = [];
 var userInputs = [];
 var level = 0; //generates a "flash" on the chosen box
@@ -18,22 +19,8 @@ var generateFlash = function generateFlash(num) {
   setTimeout(function () {
     document.getElementById("".concat(num)).classList.remove("flash");
   }, 200);
-}; //adds event listeners 
+}; //generates new sally input
 
-
-var detectUserInput = function detectUserInput() {
-  boxes.forEach(function (box) {
-    box.addEventListener("click", function (event) {
-      var userNewInput = Number(event.target.id);
-      userInputs.push(userNewInput);
-      generateFlash(userNewInput);
-      checkUserInput(userNewInput);
-    });
-  });
-}; //THIS FIXED ITTTTT
-
-
-detectUserInput(); //generates new sally input
 
 var sallySays = function sallySays() {
   var sallysNewInput = Math.ceil(Math.random() * 4);
@@ -68,7 +55,7 @@ var gameOver = function gameOver() {
   gameOverHeading.style.display = "block";
   heading.classList.add("game-over");
   game.classList.add("game-over");
-  boxes.forEach(function (box) {
+  document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.add("game-over");
   }); //call start screen or restart screen
 
@@ -78,25 +65,88 @@ var gameOver = function gameOver() {
   }, 3000);
 };
 
-var startGame = function startGame() {
+var detectUserInput = function detectUserInput(input) {
+  userInputs.push(input);
+  generateFlash(input);
+  checkUserInput(input);
+};
+
+var renderBoxes = function renderBoxes() {
+  boxContainer.innerHTML += array.map(function (num) {
+    var color = "";
+
+    switch (num) {
+      case 1:
+        color = "purple";
+        break;
+
+      case 2:
+        color = "yellow";
+        break;
+
+      case 3:
+        color = "blue";
+        break;
+
+      case 4:
+        color = "pink";
+        break;
+
+      default: // code block
+
+    }
+
+    return "<div class=\"box-container__box ".concat(color, "\"  id=\"").concat(num, "\"></div>");
+  }).join("\n");
+  document.querySelectorAll(".box-container__box").forEach(function (box) {
+    box.addEventListener("click", function (event) {
+      var userNewInput = Number(event.target.id);
+      detectUserInput(userNewInput);
+    });
+  });
+};
+
+var startEasyGame = function startEasyGame() {
+  //reset
   start.style.display = "none";
   game.style.display = "block";
   gameOverHeading.style.display = "none";
   heading.classList.remove("game-over");
   game.classList.remove("game-over");
-  boxes.forEach(function (box) {
+  document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.remove("game-over");
-  });
+  }); //dynamically render boxes
+
+  if (!document.querySelector(".box-container__box")) {
+    renderBoxes();
+  }
+
   setTimeout(function () {
     sallySays();
   }, 800);
-}; //Easy mode
+}; // const startHardGame = () =>{
+//   //reset
+//   start.style.display = "none";
+//   game.style.display = "block";
+//   gameOverHeading.style.display = "none";
+//   heading.classList.remove("game-over");
+//   game.classList.remove("game-over");
+//   boxes.forEach(box=>{
+//     box.classList.remove("game-over");
+//   })
+//   //dynamically render boxes
+//   renderBoxes();
+//   setTimeout(() => {
+//     sallySays();
+//   }, 800);
+// };
+//Easy mode
 
 
 startButtonEasy.addEventListener("click", function () {
-  startGame();
+  startEasyGame();
 }); //Hard mode
 
 startButtonHard.addEventListener("click", function () {
-  startGame();
+  startHardGame();
 });

@@ -3,6 +3,7 @@ p {
   font-family: $body-font;
   text-transform: uppercase;
   line-height: 1.8;
+  margin: 20px 0;
 }
 
 button {
@@ -13,20 +14,20 @@ button {
 
 .start__heading {
   @extend %heading-shared;
-  font-size: 4rem;
-  margin: 40px;
+  font-size: 5rem;
+  margin: 40px 0;
   color: $black;
   text-shadow:
   0.2px 0.2px 0px #131313,
-  5px 5px 0px #eb2b6b,
-  7px 7px 0px $yellow, 
-  9px 9px 0px $blue, 
-  11px 11px 0px #017e7f, 
-  13px 13px 0px #052939, 
-  15px 15px 0px #6238fa, 
-  17px 17px 0px $pink, 
-  19px 19px 0px $pink, 
-  21px 21px 0px #eb2b6b;
+  2px 2px 0px #eb2b6b,
+  3px 3px 0px $yellow, 
+  4px 4px 0px $blue, 
+  5px 5px 0px #017e7f, 
+  6px 6px 0px #052939, 
+  7px 7px 0px #6238fa, 
+  8px 8px 0px $pink, 
+  9px 9px 0px $pink, 
+  10px 10px 0px #eb2b6b;
 }
 
 .game-header__heading {
@@ -53,7 +54,7 @@ button {
   display: none;
   position: absolute;
   z-index: 1;
-  font-size: 8rem;
+  font-size: 6rem;
   font-family: $bold-font;
   text-transform: uppercase;
   color: $white;
@@ -72,12 +73,34 @@ button {
 @media screen and (min-width: 744px) {
   .start__heading {
     font-size: 7rem;
+    text-shadow:
+    0.2px 0.2px 0px #131313,
+    3px 3px 0px #eb2b6b,
+    5px 5px 0px $yellow, 
+    7px 7px 0px $blue, 
+    9px 9px 0px #017e7f, 
+    11px 11px 0px #052939, 
+    13px 13px 0px #6238fa, 
+    15px 15px 0px $pink, 
+    17px 17px 0px $pink, 
+    19px 19px 0px #eb2b6b;
   }
 }
 
 @media screen and (min-width: 900px) {
   .start__heading {
     font-size: 10rem;
+    text-shadow:
+    0.2px 0.2px 0px #131313,
+    5px 5px 0px #eb2b6b,
+    7px 7px 0px $yellow, 
+    9px 9px 0px $blue, 
+    11px 11px 0px #017e7f, 
+    13px 13px 0px #052939, 
+    15px 15px 0px #6238fa, 
+    17px 17px 0px $pink, 
+    19px 19px 0px $pink, 
+    21px 21px 0px #eb2b6b;
   }
 }
 

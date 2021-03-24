@@ -3,11 +3,12 @@ const start = document.querySelector(".start");
 const startButtonEasy = document.querySelector("#easy");
 const startButtonHard = document.querySelector("#hard");
 const game = document.querySelector(".game");
+const boxContainer = document.querySelector(".box-container");
 const gameOverHeading = document.querySelector(".game-over-heading");
 const heading = document.querySelector(".game-header__heading");
 const text = document.querySelector(".game-header__text");
-const boxes = document.querySelectorAll(".box-container__box");
 
+let array = [1, 2, 3, 4];
 let sallysInputs = [];
 let userInputs = [];
 let level = 0;
@@ -20,20 +21,6 @@ const generateFlash = (num) => {
     document.getElementById(`${num}`).classList.remove("flash");
   }, 200)
 };
-
-//adds event listeners 
-const detectUserInput = () => {
-  boxes.forEach(box => {
-    box.addEventListener("click", event => {
-      const userNewInput = Number(event.target.id);
-      userInputs.push(userNewInput);
-      generateFlash(userNewInput);
-      checkUserInput(userNewInput);
-    });
-  });
-};
-//THIS FIXED ITTTTT
-detectUserInput();
 
 //generates new sally input
 const sallySays = () => {
@@ -70,7 +57,7 @@ const gameOver = () => {
   gameOverHeading.style.display = "block";
   heading.classList.add("game-over");
   game.classList.add("game-over");
-  boxes.forEach(box=>{
+  document.querySelectorAll(".box-container__box").forEach(box=>{
     box.classList.add("game-over");
   })
 
@@ -81,28 +68,95 @@ const gameOver = () => {
   }, 3000);
 };
 
-const startGame = () =>{
+
+const detectUserInput = (input) => {
+  userInputs.push(input);
+  generateFlash(input);
+  checkUserInput(input);
+};
+
+const renderBoxes = () =>{
+  boxContainer.innerHTML += array.map(num=>{
+    let color = "";
+    
+    switch(num) {
+      case 1:
+        color = "purple";
+        break;
+      case 2:
+        color = "yellow";
+        break;
+      case 3:
+        color = "blue";
+        break;
+      case 4:
+        color = "pink";
+        break;
+      default:
+        // code block
+    }
+
+    return `<div class="box-container__box ${color}"  id="${num}"></div>`
+
+  }).join("\n");
+
+  document.querySelectorAll(".box-container__box").forEach(box => {
+    box.addEventListener("click", event => {
+      const userNewInput = Number(event.target.id);
+      detectUserInput(userNewInput);
+    });
+  });
+}
+
+const startEasyGame = () =>{
+  //reset
   start.style.display = "none";
   game.style.display = "block";
   gameOverHeading.style.display = "none";
 
   heading.classList.remove("game-over");
   game.classList.remove("game-over");
-  boxes.forEach(box=>{
+  document.querySelectorAll(".box-container__box").forEach(box=>{
     box.classList.remove("game-over");
   })
+
+  //dynamically render boxes
+  if (!document.querySelector(".box-container__box")){
+    renderBoxes();
+  }
 
   setTimeout(() => {
     sallySays();
   }, 800);
 };
 
+// const startHardGame = () =>{
+//   //reset
+//   start.style.display = "none";
+//   game.style.display = "block";
+//   gameOverHeading.style.display = "none";
+
+//   heading.classList.remove("game-over");
+//   game.classList.remove("game-over");
+//   boxes.forEach(box=>{
+//     box.classList.remove("game-over");
+//   })
+
+//   //dynamically render boxes
+//   renderBoxes();
+  
+
+//   setTimeout(() => {
+//     sallySays();
+//   }, 800);
+// };
+
 //Easy mode
 startButtonEasy.addEventListener("click", ()=>{
-  startGame();
+  startEasyGame();
 });
 
 //Hard mode
 startButtonHard.addEventListener("click", ()=>{
-  startGame();
+  startHardGame();
 });
