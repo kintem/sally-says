@@ -1,19 +1,12 @@
-// 1. sally picks random Number
-// 2. number is added to Array
-// 3. corresponding box flashes
-// 4. add event listeners to all boxes
-// 5. detect user input
-// 6. add user input to user array
-// 7. check user input === sallys input at specific index - if true go to 8, if false change heading to game over and add specific styling to page
-// 8. if userinput.length === sallys input.length -  1. increment level 2. reassign user array to empty array??? 3. sally generates new input (call number function again)
-
 const body = document.querySelector("body");
 const start = document.querySelector(".start");
+const startButtonEasy = document.querySelector("#easy");
+const startButtonHard = document.querySelector("#hard");
 const game = document.querySelector(".game");
-const startButton = document.querySelector(".start__button");
-const boxes = document.querySelectorAll(".box-container__box");
+const gameOverHeading = document.querySelector(".game-over-heading");
 const heading = document.querySelector(".game-header__heading");
 const text = document.querySelector(".game-header__text");
+const boxes = document.querySelectorAll(".box-container__box");
 
 let sallysInputs = [];
 let userInputs = [];
@@ -39,7 +32,6 @@ const detectUserInput = () => {
     });
   });
 };
-
 //THIS FIXED ITTTTT
 detectUserInput();
 
@@ -47,22 +39,21 @@ detectUserInput();
 const sallySays = () => {
   const sallysNewInput = Math.ceil(Math.random()*4);
   sallysInputs.push(sallysNewInput);
+  generateFlash(sallysNewInput);
   level++;
   text.innerHTML = `Level: ${level}`;
-  generateFlash(sallysNewInput);
 };
 
 // compares users input with sallys input (at same index?)
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
 const checkUserInput = () => {
-
   let index = (userInputs.length-1);
 
   if (userInputs[index] != sallysInputs[index]){
-    console.log("game over");
     gameOver();
+    console.log(userInputs);
+    console.log(sallysInputs);
   } else if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
-    console.log("yay");
     userInputs = [];
     setTimeout(()=>{
       sallySays();
@@ -71,34 +62,47 @@ const checkUserInput = () => {
 };
 
 const gameOver = () => {
-  userInput = [];
-  sallysInputs = [];
   level = 0;
-  //change page styling
-  body.style.backgroundColor = "red";
+  userInputs = [];
+  sallysInputs = [];
+
+  //styling
+  gameOverHeading.style.display = "block";
+  heading.classList.add("game-over");
+  game.classList.add("game-over");
   boxes.forEach(box=>{
-    box.style.backgroundColor = "black";
+    box.classList.add("game-over");
   })
+
+  //call start screen or restart screen
+  setTimeout(() => {
+    start.style.display = "flex";
+    game.style.display = "none";
+  }, 3000);
 };
 
 const startGame = () =>{
   start.style.display = "none";
-  game.style.display = "contents";
-  body.style.backgroundColor = "black";
-  heading.style.color = "white";
-  text.style.color = "white";
+  game.style.display = "block";
+  gameOverHeading.style.display = "none";
 
+  heading.classList.remove("game-over");
+  game.classList.remove("game-over");
+  boxes.forEach(box=>{
+    box.classList.remove("game-over");
+  })
 
   setTimeout(() => {
     sallySays();
   }, 800);
 };
 
-startButton.addEventListener("click", ()=>{
+//Easy mode
+startButtonEasy.addEventListener("click", ()=>{
   startGame();
 });
 
-
-// document.body.addEventListener("keydown", ()=>{
-//     sallySays();
-// });
+//Hard mode
+startButtonHard.addEventListener("click", ()=>{
+  startGame();
+});

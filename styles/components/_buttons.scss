@@ -4,11 +4,24 @@
     margin: 30px;
     border: none;
     border-radius: 12px;
-    font-size: 14px;
+    // box-shadow: 2px 4px;
 
-    &:hover {
-      background-color: $black;
-      color: $yellow;
+    &#easy {
+      background-color: #ff69b4;
+
+      &:hover {
+        background-color: $black;
+        color: #ffa500;
+      }
+    }
+
+    &#hard {
+      background-color: #ffa500;
+
+      &:hover {
+        background-color: $black;
+        color: #ff69b4;
+      }
     }
   }
 }

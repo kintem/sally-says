@@ -1,6 +1,19 @@
+p {
+  color: $black;
+  font-family: $body-font;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+button {
+  font-size: 1.6rem;
+  font-family: $heading-font;
+  text-transform: lowercase;
+}
+
 .start__heading {
   @extend %heading-shared;
-  font-size: 10rem;
+  font-size: 4rem;
   margin: 40px;
   color: $black;
   text-shadow:
@@ -32,9 +45,39 @@
   10px 10px 0px #eb2b6b;
 }
 
-p, button {
-  color: $black;
-  font-family: $body-font;
-  text-transform: uppercase;
-  line-height: 1.8;
+.game-header__text {
+  color: $white;
 }
+
+.game-over-heading {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  font-size: 8rem;
+  font-family: $bold-font;
+  text-transform: uppercase;
+  color: $white;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@media screen and (min-width: 744px) {
+  .start__heading {
+    font-size: 7rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .start__heading {
+    font-size: 10rem;
+  }
+}
+
