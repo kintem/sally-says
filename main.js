@@ -9,6 +9,7 @@ const heading = document.querySelector(".game-header__heading");
 const text = document.querySelector(".game-header__text");
 
 let array = [1, 2, 3, 4, 5, 6];
+let shuffled = [];
 let easyArray = array.slice(0, 4);
 let sallysInputs = [];
 let userInputs = [];
@@ -38,6 +39,16 @@ const sallySays = (boxNum) => {
   text.innerHTML = `Level: ${level}`;
 };
 
+//shuffle array 
+const shuffleBoxes = () =>{
+  shuffled = array.sort(()=>{
+    return Math.random() - 0.5
+  });
+
+  boxContainer.innerHTML = "";
+  renderBoxes(shuffled);
+}
+
 // compares users input with sallys input (at same index?)
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
 const checkUserInput = (mode) => {
@@ -52,7 +63,10 @@ const checkUserInput = (mode) => {
       if (mode === "easy") {
         sallySays(4);
       } else {
-        sallySays(6);
+        shuffleBoxes();
+        setTimeout(() => {
+          sallySays(6);
+        }, 800);
       }
     }, 800)
   }
@@ -71,6 +85,8 @@ const gameOver = () => {
     box.classList.add("game-over");
   })
 
+  console.log("im being called");
+
   //call start screen or restart screen
   setTimeout(() => {
     start.style.display = "flex";
@@ -85,7 +101,7 @@ const detectUserInput = (input, mode) => {
   checkUserInput(mode);
 };
 
-const renderBoxes = (array) =>{
+function renderBoxes(array) {
   boxContainer.innerHTML += array.map(num=>{
     let color = "";
     
@@ -103,10 +119,10 @@ const renderBoxes = (array) =>{
         color = "pink";
         break;
       case 5:
-        color = "orange";
+        color = "lime";
         break;
       case 6:
-        color = "lime";
+        color = "orange";
         break;
       default:
         // code block
@@ -116,16 +132,23 @@ const renderBoxes = (array) =>{
 
   }).join("\n");
 
+
   document.querySelectorAll(".box-container__box").forEach(box => {
     box.addEventListener("click", event => {
       const userNewInput = Number(event.target.id);
-      if (document.querySelector(".lime")){
-        detectUserInput(userNewInput, "hard");
-      } else {
+      if (array === easyArray){
         detectUserInput(userNewInput, "easy");
+      } else {
+        detectUserInput(userNewInput, "hard");
       }
     });
   });
+
+  if (array === easyArray) {
+    boxContainer.classList.add("easy");
+  } else if (array === array || array === shuffled) {
+    boxContainer.classList.add("hard");
+  }
 }
 
 const startGame = (mode) =>{
@@ -139,6 +162,7 @@ const startGame = (mode) =>{
   document.querySelectorAll(".box-container__box").forEach(box=>{
     box.classList.remove("game-over");
   })
+  boxContainer.classList.remove("hard", "easy");
 
   //dynamically render boxes CHANGE MODES AFTER GAME OVER
   if (!document.querySelector(".box-container__box")){
@@ -151,8 +175,12 @@ const startGame = (mode) =>{
     if (mode === "easy" && document.querySelector(".lime")) {
       document.querySelector(".lime").style.display = "none";
       document.querySelector(".orange").style.display = "none";
+      boxContainer.classList.add("easy");
+
     } else if (mode === "hard" && !document.querySelector(".lime")) {
       renderBoxes(array.slice(4, 6));
+      boxContainer.classList.add("hard");
+
     }
   }
 

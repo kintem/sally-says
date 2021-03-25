@@ -10,6 +10,7 @@ var gameOverHeading = document.querySelector(".game-over-heading");
 var heading = document.querySelector(".game-header__heading");
 var text = document.querySelector(".game-header__text");
 var array = [1, 2, 3, 4, 5, 6];
+var shuffled = [];
 var easyArray = array.slice(0, 4);
 var sallysInputs = [];
 var userInputs = [];
@@ -36,6 +37,15 @@ var sallySays = function sallySays(boxNum) {
   generateFlash(sallysNewInput);
   level++;
   text.innerHTML = "Level: ".concat(level);
+}; //shuffle array 
+
+
+var shuffleBoxes = function shuffleBoxes() {
+  shuffled = array.sort(function () {
+    return Math.random() - 0.5;
+  });
+  boxContainer.innerHTML = "";
+  renderBoxes(shuffled);
 }; // compares users input with sallys input (at same index?)
 // if all correct and array lengths are the same, call sallySays() and reset user array to an empty array, if incorrect - game over
 
@@ -51,7 +61,10 @@ var checkUserInput = function checkUserInput(mode) {
       if (mode === "easy") {
         sallySays(4);
       } else {
-        sallySays(6);
+        shuffleBoxes();
+        setTimeout(function () {
+          sallySays(6);
+        }, 800);
       }
     }, 800);
   }
@@ -67,7 +80,8 @@ var gameOver = function gameOver() {
   game.classList.add("game-over");
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.add("game-over");
-  }); //call start screen or restart screen
+  });
+  console.log("im being called"); //call start screen or restart screen
 
   setTimeout(function () {
     start.style.display = "flex";
@@ -81,7 +95,7 @@ var detectUserInput = function detectUserInput(input, mode) {
   checkUserInput(mode);
 };
 
-var renderBoxes = function renderBoxes(array) {
+function renderBoxes(array) {
   boxContainer.innerHTML += array.map(function (num) {
     var color = "";
 
@@ -103,11 +117,11 @@ var renderBoxes = function renderBoxes(array) {
         break;
 
       case 5:
-        color = "orange";
+        color = "lime";
         break;
 
       case 6:
-        color = "lime";
+        color = "orange";
         break;
 
       default: // code block
@@ -120,14 +134,20 @@ var renderBoxes = function renderBoxes(array) {
     box.addEventListener("click", function (event) {
       var userNewInput = Number(event.target.id);
 
-      if (document.querySelector(".lime")) {
-        detectUserInput(userNewInput, "hard");
-      } else {
+      if (array === easyArray) {
         detectUserInput(userNewInput, "easy");
+      } else {
+        detectUserInput(userNewInput, "hard");
       }
     });
   });
-};
+
+  if (array === easyArray) {
+    boxContainer.classList.add("easy");
+  } else if (array === array || array === shuffled) {
+    boxContainer.classList.add("hard");
+  }
+}
 
 var startGame = function startGame(mode) {
   //reset
@@ -138,7 +158,8 @@ var startGame = function startGame(mode) {
   game.classList.remove("game-over");
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.remove("game-over");
-  }); //dynamically render boxes CHANGE MODES AFTER GAME OVER
+  });
+  boxContainer.classList.remove("hard", "easy"); //dynamically render boxes CHANGE MODES AFTER GAME OVER
 
   if (!document.querySelector(".box-container__box")) {
     if (mode === "easy") {
@@ -150,8 +171,10 @@ var startGame = function startGame(mode) {
     if (mode === "easy" && document.querySelector(".lime")) {
       document.querySelector(".lime").style.display = "none";
       document.querySelector(".orange").style.display = "none";
+      boxContainer.classList.add("easy");
     } else if (mode === "hard" && !document.querySelector(".lime")) {
       renderBoxes(array.slice(4, 6));
+      boxContainer.classList.add("hard");
     }
   }
 
