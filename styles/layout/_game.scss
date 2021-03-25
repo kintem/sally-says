@@ -2,6 +2,17 @@
   display: none;
   background-color: $black;
   height: 100vh;
+
+  &-header {
+    &__text {
+      margin: 30px 0 10px;
+    }
+
+    &__message{
+      margin: 0 0 15px;
+      height: 1rem;
+    }
+  }
 }
 
 .game-container {
@@ -50,19 +61,17 @@
   }
 }
 
-.game-container {
-  .box-container.hard {
-    .box-container__box {
-      width: 140px;
-      height: 140px;
-    }
-  }
-}
-
 .game-over {
   animation: toGreyscale 1s;
   filter: grayscale(100%);
   color: #464545;
+}
+
+.game-over-heading{
+  display: none;
+  position: absolute;
+  z-index: 1;
+  animation: fadeIn 1s;
 }
 
 @keyframes toGreyscale {
@@ -73,107 +82,11 @@
   100%  { -webkit-filter: grayscale(100%); filter: grayscale(100%); }
 }
 
-//EASY MODE
-@media screen and (min-width: 500px) {
-  .game-container {
-    .box-container.easy {
-      width: 85%;
-
-      .box-container__box {
-        width: 175px;
-        height: 175px;
-      }
-    }
+@keyframes fadeIn{
+  0% {
+    opacity:0;
   }
-}
-
-@media screen and (min-width: 726px) {
-  .game-container {
-    .box-container.easy {
-      width: 75%;
-      .box-container__box {
-        width: 185px;
-        height: 185px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 860px) {
-  .game-container {
-    .box-container.easy {
-      width: 65%;
-      .box-container__box {
-        width: 200px;
-        height: 200px;
-        margin: 25px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1150px) {
-  .game-container {
-    .box-container.easy {
-      width: 50%;
-      max-width: 770px;
-      .box-container__box {
-        width: 200px;
-        height: 200px;
-        margin: 30px;
-      }
-    }
-  }
-}
-
-
-//HARD MODE
-@media screen and (min-width: 500px) {
-  .game-container {
-    .box-container.hard {
-      width: 80%;
-      .box-container__box {
-        width: 145px;
-        height: 145px;
-        margin: 10px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 808px) {
-  .game-container {
-    .box-container.hard {
-      .box-container__box {
-        width: 185px;
-        height: 185px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .game-container {
-    .box-container.hard {
-      .box-container__box {
-        width: 200px;
-        height: 200px;
-        margin: 30px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1300px) {
-  .game-container {
-    .box-container.hard {
-      width: 70%;
-      max-width: 1030px;
-      .box-container__box {
-        width: 200px;
-        height: 200px;
-        margin: 30px;
-      }
-    }
+  100% {
+    opacity:1;
   }
 }

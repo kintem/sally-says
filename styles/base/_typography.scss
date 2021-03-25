@@ -1,19 +1,14 @@
-summary {
-  font-family: $body-font;
-  text-transform: uppercase;
-  color: $black;
-  margin: 20px;
-
-  &:hover {
-    color: $white;
-  }
-}
-
 p {
   color: $black;
   font-family: $body-font;
   text-transform: lowercase;
   line-height: 1.6;
+}
+
+button {
+  font-size: 1.6rem;
+  font-family: $heading-font;
+  text-transform: lowercase;
 }
 
 .pink {
@@ -26,78 +21,82 @@ p {
   background-color: $blue;
 }
 
-button {
-  font-size: 1.6rem;
-  font-family: $heading-font;
-  text-transform: lowercase;
+.start {
+  &__heading {
+    @extend %heading-shared;
+    font-size: 5rem;
+    color: $black;
+    text-shadow:
+    0.2px 0.2px 0px #131313,
+    2px 2px 0px #eb2b6b,
+    3px 3px 0px $yellow, 
+    4px 4px 0px $blue, 
+    5px 5px 0px #017e7f, 
+    6px 6px 0px #052939, 
+    7px 7px 0px #6238fa, 
+    8px 8px 0px $pink, 
+    9px 9px 0px $pink, 
+    10px 10px 0px #eb2b6b;
+  }
+
+  &__details {
+    summary {
+      font-family: $body-font;
+      text-transform: uppercase;
+      color: $black;
+    
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  &__hover-text {
+    font-size: 0.8rem;
+    font-style: italic;
+    height: 1rem;
+  }
+
 }
 
-.start__heading {
-  @extend %heading-shared;
-  font-size: 5rem;
-  margin: 40px 0;
-  color: $black;
-  text-shadow:
-  0.2px 0.2px 0px #131313,
-  2px 2px 0px #eb2b6b,
-  3px 3px 0px $yellow, 
-  4px 4px 0px $blue, 
-  5px 5px 0px #017e7f, 
-  6px 6px 0px #052939, 
-  7px 7px 0px #6238fa, 
-  8px 8px 0px $pink, 
-  9px 9px 0px $pink, 
-  10px 10px 0px #eb2b6b;
+.game {
+  &-header {
+
+    &__heading {
+      @extend %heading-shared;
+      color: $white;
+      text-shadow:
+      0.2px 0.2px 0px #131313,
+      2px 2px 0px #eb2b6b,
+      3px 3px 0px $yellow, 
+      4px 4px 0px $blue, 
+      5px 5px 0px #017e7f, 
+      6px 6px 0px #052939, 
+      7px 7px 0px #6238fa, 
+      8px 8px 0px $pink, 
+      9px 9px 0px $pink, 
+      10px 10px 0px #eb2b6b;
+    }
+
+    &__text {
+      color: $white;
+      font-weight: 500;
+    }
+
+    &__message {
+      color: $green;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+  }
 }
 
-.game-header__heading {
-  @extend %heading-shared;
-  color: $white;
-  text-shadow:
-  0.2px 0.2px 0px #131313,
-  2px 2px 0px #eb2b6b,
-  3px 3px 0px $yellow, 
-  4px 4px 0px $blue, 
-  5px 5px 0px #017e7f, 
-  6px 6px 0px #052939, 
-  7px 7px 0px #6238fa, 
-  8px 8px 0px $pink, 
-  9px 9px 0px $pink, 
-  10px 10px 0px #eb2b6b;
-}
-
-.game-header__text {
-  color: $white;
-  font-weight: 500;
-  margin: 30px 0 10px;
-}
-
-.game-header__message {
-  height: 1rem;
-  color: $green;
-  font-size: 0.8rem;
-  font-style: italic;
-  margin: 0 0 15px;
-}
 
 .game-over-heading {
-  display: none;
-  position: absolute;
-  z-index: 1;
   font-size: 6rem;
   font-family: $bold-font;
   text-transform: uppercase;
   color: $white;
-  animation: fadeIn 1s;
-}
-
-@keyframes fadeIn{
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
 }
 
 @media screen and (min-width: 744px) {

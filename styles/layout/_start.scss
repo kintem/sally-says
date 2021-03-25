@@ -2,18 +2,20 @@
   @extend %flex-shared;
   flex-direction: column;
   background-color: $green;
-  height: 100%;
+  height: 100vh;
+
+  &__heading {
+    margin: 40px 0;
+  }
 
   &__details {
     @extend %flex-shared;
     flex-direction: column;
     width: 80%;
-  }
 
-  &__hover-text {
-    height: 1rem;
-    font-size: 0.8rem;
-    font-style: italic;
+    summary {
+      margin: 20px;
+    }
   }
 }
 
