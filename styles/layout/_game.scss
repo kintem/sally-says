@@ -107,6 +107,7 @@
   .game-container {
     .box-container.easy {
       width: 50%;
+      max-width: 770px;
       .box-container__box {
         width: 200px;
         height: 200px;
@@ -153,6 +154,7 @@
   .game-container {
     .box-container.hard {
       width: 70%;
+      max-width: 1030px;
       .box-container__box {
         width: 200px;
         height: 200px;

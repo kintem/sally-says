@@ -9,6 +9,8 @@ var boxContainer = document.querySelector(".box-container");
 var gameOverHeading = document.querySelector(".game-over-heading");
 var heading = document.querySelector(".game-header__heading");
 var text = document.querySelector(".game-header__text");
+var message = document.querySelector(".game-header__message");
+var messages = ["", "", "good job!", "nice", "ooh someone's a pro!", "is this distracting?", "damn daniel", "impressive", "getting harder now ain't it?", "ooft", "HOW ARE YOU STILL GOING", "i'm bored now", "bye"];
 var array = [1, 2, 3, 4, 5, 6];
 var shuffled = [];
 var easyArray = array.slice(0, 4);
@@ -26,16 +28,15 @@ var generateFlash = function generateFlash(num) {
 
 
 var sallySays = function sallySays(boxNum) {
-  // if (boxNum <= 4) {
-  //   mode = "easy";
-  // } else {
-  //   mode = "hard";
-  // }
   var sallysNewInput = Math.ceil(Math.random() * boxNum);
   sallysInputs.push(sallysNewInput);
   generateFlash(sallysNewInput);
   level++;
   text.innerHTML = "Level: ".concat(level);
+
+  if (level > 2) {
+    message.innerHTML = "".concat(messages[level]);
+  }
 }; //shuffle array 
 
 
@@ -150,6 +151,7 @@ function renderBoxes(array) {
 
 var startGame = function startGame(mode) {
   //reset
+  message.innerHTML = "";
   boxContainer.innerHTML = "";
   start.style.display = "none";
   game.style.display = "block";
@@ -193,8 +195,20 @@ var startGame = function startGame(mode) {
       sallySays(6);
     }
   }, 800);
-}; //Easy mode
+};
 
+startButtonEasy.addEventListener("mouseover", function () {
+  document.querySelector(".start__hover-text").innerHTML = "you're better than that";
+});
+startButtonEasy.addEventListener("mouseout", function () {
+  document.querySelector(".start__hover-text").innerHTML = "";
+});
+startButtonHard.addEventListener("mouseover", function () {
+  document.querySelector(".start__hover-text").innerHTML = "ooh feeling confident are we?";
+});
+startButtonHard.addEventListener("mouseout", function () {
+  document.querySelector(".start__hover-text").innerHTML = "";
+}); //Easy mode
 
 startButtonEasy.addEventListener("click", function () {
   startGame("easy");

@@ -11,16 +11,21 @@
 <body>
     <div class="start">
         <h1 class="start__heading">Sally Says</h1>
-        <p class="start__text">Game instructions Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam quis cumque saepe eos dolorum. Facere incidunt distinctio, exercitationem similique quidem.</p>
+        <details class="start__details">
+            <summary id="instructions">Instructions</summary>
+            <p class="start__text">If Sally says <span class="pink">pink</span>, you click <span class="pink">pink</span>. Then if Sally says <span class="blue">blue</span>, you click <span class="pink">pink</span> and then <span class="blue">blue</span>. Pretty simple, right?</p>
+        </details>
         <div class="button-container">
             <button class="start__button" id="easy">Easy</button>
             <button class="start__button" id="hard">Hard</button>
         </div>
+        <p class="start__hover-text"></p>
     </div>
     <div class="game">
         <header class="game-header">
             <h1 class="game-header__heading">Sally Says</h1>
             <p class="game-header__text">Ready?</p>
+            <p class="game-header__message"></p>
         </header>
         <main class="game-container">
             <h2 class="game-over-heading">Game Over</h2>

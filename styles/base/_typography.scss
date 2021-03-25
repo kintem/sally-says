@@ -1,9 +1,29 @@
+summary {
+  font-family: $body-font;
+  text-transform: uppercase;
+  color: $black;
+  margin: 20px;
+
+  &:hover {
+    color: $white;
+  }
+}
+
 p {
   color: $black;
   font-family: $body-font;
-  text-transform: uppercase;
-  line-height: 1.8;
-  margin: 20px 0;
+  text-transform: lowercase;
+  line-height: 1.6;
+}
+
+.pink {
+  @extend %span-shared;
+  background-color: $pink;
+}
+
+.blue {
+  @extend %span-shared;
+  background-color: $blue;
 }
 
 button {
@@ -49,6 +69,15 @@ button {
 .game-header__text {
   color: $white;
   font-weight: 500;
+  margin: 30px 0 10px;
+}
+
+.game-header__message {
+  height: 1rem;
+  color: $green;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin: 0 0 15px;
 }
 
 .game-over-heading {

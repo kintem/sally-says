@@ -7,6 +7,9 @@ const boxContainer = document.querySelector(".box-container");
 const gameOverHeading = document.querySelector(".game-over-heading");
 const heading = document.querySelector(".game-header__heading");
 const text = document.querySelector(".game-header__text");
+const message = document.querySelector(".game-header__message");
+
+let messages = ["", "", "good job!", "nice", "ooh someone's a pro!", "is this distracting?", "damn daniel", "impressive", "getting harder now ain't it?", "ooft", "HOW ARE YOU STILL GOING", "i'm bored now", "bye"];
 
 let array = [1, 2, 3, 4, 5, 6];
 let shuffled = [];
@@ -27,16 +30,15 @@ const generateFlash = (num) => {
 
 //generates new sally input
 const sallySays = (boxNum) => {
-  // if (boxNum <= 4) {
-  //   mode = "easy";
-  // } else {
-  //   mode = "hard";
-  // }
   const sallysNewInput = Math.ceil(Math.random() * boxNum);
   sallysInputs.push(sallysNewInput);
   generateFlash(sallysNewInput);
   level++;
   text.innerHTML = `Level: ${level}`;
+  if (level > 2) {
+    message.innerHTML = `${messages[level]}`;
+
+  }
 };
 
 //shuffle array 
@@ -152,6 +154,7 @@ function renderBoxes(array) {
 
 const startGame = (mode) =>{
   //reset
+  message.innerHTML = "";
   boxContainer.innerHTML = "";
   start.style.display = "none";
   game.style.display = "block";
@@ -194,6 +197,23 @@ const startGame = (mode) =>{
     }
   }, 800);
 };
+
+startButtonEasy.addEventListener("mouseover", ()=>{
+  document.querySelector(".start__hover-text").innerHTML = "you're better than that";
+});
+
+startButtonEasy.addEventListener("mouseout", ()=>{
+  document.querySelector(".start__hover-text").innerHTML = "";
+});
+
+startButtonHard.addEventListener("mouseover", ()=>{
+  document.querySelector(".start__hover-text").innerHTML = "ooh feeling confident are we?";
+});
+
+startButtonHard.addEventListener("mouseout", ()=>{
+  document.querySelector(".start__hover-text").innerHTML = "";
+});
+
 
 //Easy mode
 startButtonEasy.addEventListener("click", ()=>{

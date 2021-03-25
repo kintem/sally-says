@@ -4,15 +4,23 @@
   background-color: $green;
   height: 100%;
 
-  &__text {
+  &__details {
+    @extend %flex-shared;
+    flex-direction: column;
     width: 80%;
+  }
+
+  &__hover-text {
+    height: 1rem;
+    font-size: 0.8rem;
+    font-style: italic;
   }
 }
 
 @media screen and (min-width: 744px) {
   .start {
-    &__text {
-      width: 50%;
+    &__details {
+      width: 30%;
     }
   }
 }
