@@ -26,12 +26,11 @@ var generateFlash = function generateFlash(num) {
 
 
 var sallySays = function sallySays(boxNum) {
-  if (boxNum > 4) {
-    mode = "hard";
-  } else {
-    mode = "easy";
-  }
-
+  // if (boxNum <= 4) {
+  //   mode = "easy";
+  // } else {
+  //   mode = "hard";
+  // }
   var sallysNewInput = Math.ceil(Math.random() * boxNum);
   sallysInputs.push(sallysNewInput);
   generateFlash(sallysNewInput);
@@ -80,12 +79,12 @@ var gameOver = function gameOver() {
   game.classList.add("game-over");
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.add("game-over");
-  });
-  console.log("im being called"); //call start screen or restart screen
+  }); //call start screen or restart screen
 
   setTimeout(function () {
     start.style.display = "flex";
     game.style.display = "none";
+    boxContainer.classList.remove("hard", "easy");
   }, 3000);
 };
 
@@ -151,6 +150,7 @@ function renderBoxes(array) {
 
 var startGame = function startGame(mode) {
   //reset
+  boxContainer.innerHTML = "";
   start.style.display = "none";
   game.style.display = "block";
   gameOverHeading.style.display = "none";
@@ -158,8 +158,7 @@ var startGame = function startGame(mode) {
   game.classList.remove("game-over");
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.remove("game-over");
-  });
-  boxContainer.classList.remove("hard", "easy"); //dynamically render boxes CHANGE MODES AFTER GAME OVER
+  }); //dynamically render boxes CHANGE MODES AFTER GAME OVER
 
   if (!document.querySelector(".box-container__box")) {
     if (mode === "easy") {
@@ -168,11 +167,20 @@ var startGame = function startGame(mode) {
       renderBoxes(array);
     }
   } else if (document.querySelector(".box-container__box")) {
-    if (mode === "easy" && document.querySelector(".lime")) {
-      document.querySelector(".lime").style.display = "none";
-      document.querySelector(".orange").style.display = "none";
+    if (mode === "easy") {
       boxContainer.classList.add("easy");
-    } else if (mode === "hard" && !document.querySelector(".lime")) {
+    }
+
+    if (mode === "easy" && document.getElementById("5")) {
+      console.log(document.getElementById("5"));
+      document.getElementById("5").style.display = "none";
+      document.getElementById("6").style.display = "none";
+      boxContainer.classList.add("easy");
+    } else if (mode === "hard") {
+      boxContainer.classList.add("hard");
+    }
+
+    if (mode === "hard" && !document.getElementById("5")) {
       renderBoxes(array.slice(4, 6));
       boxContainer.classList.add("hard");
     }
