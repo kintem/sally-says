@@ -78,6 +78,7 @@ const checkUserInput = (mode) => {
   }
 };
 
+
 const gameOver = () => {
   //reset
   level = 0;
@@ -100,14 +101,16 @@ const gameOver = () => {
   }, 3000);
 };
 
-
+//detects user input and calls to check it
 const detectUserInput = (input, mode) => {
   userInputs.push(input);
   generateFlash(input);
   checkUserInput(mode);
 };
 
+//renders boxes dynamically depending on mode
 function renderBoxes(array) {
+  //creates box html
   boxContainer.innerHTML += array.map(num=>{
     let color = "";
     
@@ -138,6 +141,7 @@ function renderBoxes(array) {
 
   }).join("\n");
 
+  //adds event listeners to each box and calls to detect user input
   document.querySelectorAll(".box-container__box").forEach(box => {
     box.addEventListener("click", event => {
       const userNewInput = Number(event.target.id);
@@ -149,6 +153,7 @@ function renderBoxes(array) {
     });
   });
 
+  //adds classes to box container depending on mode
   if (array === easyArray) {
     boxContainer.classList.add("easy");
   } else if (array === array || array === shuffled) {
@@ -170,7 +175,7 @@ const startGame = (mode) =>{
     box.classList.remove("game-over");
   })
 
-  //dynamically render boxes CHANGE MODES AFTER GAME OVER
+  //renders correct number of boxes depending on which mode was just played and which one has been selected now
   if (!document.querySelector(".box-container__box")){
 
     if (mode === "easy") {
@@ -224,12 +229,12 @@ startButtonHard.addEventListener("mouseout", ()=>{
 });
 
 
-//Easy mode
+//Start game - easy mode 
 startButtonEasy.addEventListener("click", ()=>{
   startGame("easy");
 });
 
-//Hard mode
+//Start game - hard mode
 startButtonHard.addEventListener("click", ()=>{
   startGame("hard");
 });
