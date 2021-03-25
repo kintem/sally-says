@@ -200,6 +200,11 @@ button {
   background-color: #fff;
 }
 
+.game-container .box-container.hard .box-container__box {
+  width: 140px;
+  height: 140px;
+}
+
 .game-over {
   animation: toGreyscale 1s;
   filter: grayscale(100%);
@@ -271,8 +276,13 @@ button {
   .game-container .box-container.hard {
     width: 80%;
   }
+  .game-container .box-container.hard .box-container__box {
+    width: 145px;
+    height: 145px;
+    margin: 10px;
+  }
 }
-@media screen and (min-width: 806px) {
+@media screen and (min-width: 808px) {
   .game-container .box-container.hard .box-container__box {
     width: 185px;
     height: 185px;
