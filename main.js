@@ -2,22 +2,26 @@ const body = document.querySelector("body");
 const start = document.querySelector(".start");
 const startButtonEasy = document.querySelector("#easy");
 const startButtonHard = document.querySelector("#hard");
+const buttonMessage = document.querySelector(".start__hover-text");
 const game = document.querySelector(".game");
 const boxContainer = document.querySelector(".box-container");
 const gameOverHeading = document.querySelector(".game-over-heading");
 const heading = document.querySelector(".game-header__heading");
 const text = document.querySelector(".game-header__text");
 const message = document.querySelector(".game-header__message");
+const box5 = document.getElementById("5");
+const box6 = document.getElementById("6");
 
 let messages = ["", "", "good job!", "nice", "ooh someone's a pro!", "is this distracting?", "damn daniel", "impressive", "getting harder now ain't it?", "ooft", "HOW ARE YOU STILL GOING", "i'm bored now", "bye"];
 
+let hardMessages = ["", "", "BET YOU DIDN'T SEE THAT COMING", "ooft", "this MUST be distracting", "is this distracting?", "I feel like this is distracting", "should I stop?", "HOW ARE YOU STILL GOING", "are you cheating?", "ugh", "bye"];
+
 let array = [1, 2, 3, 4, 5, 6];
-let shuffled = [];
 let easyArray = array.slice(0, 4);
+let shuffled = [];
 let sallysInputs = [];
 let userInputs = [];
 let level = 0;
-let mode = "";
 
 //generates a "flash" on the chosen box
 const generateFlash = (num) => {
@@ -28,25 +32,24 @@ const generateFlash = (num) => {
   }, 200)
 };
 
-//generates new sally input
+//generates a new sally input
 const sallySays = (boxNum) => {
   const sallysNewInput = Math.ceil(Math.random() * boxNum);
   sallysInputs.push(sallysNewInput);
   generateFlash(sallysNewInput);
   level++;
   text.innerHTML = `Level: ${level}`;
-  if (level > 2) {
-    message.innerHTML = `${messages[level]}`;
 
+  if (boxNum > 4 && level > 1) {
+    message.innerHTML = `${hardMessages[level]}`;
+  } else if (boxNum <= 4 && level > 2){
+    message.innerHTML = `${messages[level]}`;
   }
 };
 
 //shuffle array 
 const shuffleBoxes = () =>{
-  shuffled = array.sort(()=>{
-    return Math.random() - 0.5
-  });
-
+  shuffled = array.sort(()=>Math.random() - 0.5);
   boxContainer.innerHTML = "";
   renderBoxes(shuffled);
 }
@@ -61,6 +64,7 @@ const checkUserInput = (mode) => {
    
   } else if (userInputs[index] === sallysInputs[index] && userInputs.length === sallysInputs.length) {
     userInputs = [];
+
     setTimeout(()=>{
       if (mode === "easy") {
         sallySays(4);
@@ -75,6 +79,7 @@ const checkUserInput = (mode) => {
 };
 
 const gameOver = () => {
+  //reset
   level = 0;
   userInputs = [];
   sallysInputs = [];
@@ -87,7 +92,7 @@ const gameOver = () => {
     box.classList.add("game-over");
   })
 
-  //call start screen or restart screen
+  //call start screen
   setTimeout(() => {
     start.style.display = "flex";
     game.style.display = "none";
@@ -126,13 +131,12 @@ function renderBoxes(array) {
         color = "orange";
         break;
       default:
-        // code block
+        color = "pink";
     }
 
     return `<div class="box-container__box ${color}"  id="${num}"></div>`
 
   }).join("\n");
-
 
   document.querySelectorAll(".box-container__box").forEach(box => {
     box.addEventListener("click", event => {
@@ -168,22 +172,27 @@ const startGame = (mode) =>{
 
   //dynamically render boxes CHANGE MODES AFTER GAME OVER
   if (!document.querySelector(".box-container__box")){
+
     if (mode === "easy") {
       renderBoxes(easyArray);
     } else {
       renderBoxes(array);
     }
+
   } else if (document.querySelector(".box-container__box")) {
+    
     if (mode === "easy") {
       boxContainer.classList.add("easy");
-    } if (mode ==="easy" && document.getElementById("5")) {
-      console.log(document.getElementById("5"));
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
+
+    } if (mode ==="easy" && box5) {
+      box5.style.display = "none";
+      box6.style.display = "none";
       boxContainer.classList.add("easy");
-    } else if (mode === "hard") {
+
+    } if (mode === "hard") {
       boxContainer.classList.add("hard");
-    } if (mode ==="hard" && !document.getElementById("5")) {
+
+    } if (mode ==="hard" && !box5) {
       renderBoxes(array.slice(4, 6));
       boxContainer.classList.add("hard");
     }
@@ -198,20 +207,20 @@ const startGame = (mode) =>{
   }, 800);
 };
 
+//Easy button effects
 startButtonEasy.addEventListener("mouseover", ()=>{
-  document.querySelector(".start__hover-text").innerHTML = "you're better than that";
+  buttonMessage.innerHTML = "you're better than that";
 });
-
 startButtonEasy.addEventListener("mouseout", ()=>{
-  document.querySelector(".start__hover-text").innerHTML = "";
+  buttonMessage.innerHTML = "";
 });
 
+//Hard button effects
 startButtonHard.addEventListener("mouseover", ()=>{
-  document.querySelector(".start__hover-text").innerHTML = "ooh feeling confident are we?";
+  buttonMessage.innerHTML = "ooh feeling confident are we?";
 });
-
 startButtonHard.addEventListener("mouseout", ()=>{
-  document.querySelector(".start__hover-text").innerHTML = "";
+  buttonMessage.innerHTML = "";
 });
 
 

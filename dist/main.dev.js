@@ -4,27 +4,30 @@ var body = document.querySelector("body");
 var start = document.querySelector(".start");
 var startButtonEasy = document.querySelector("#easy");
 var startButtonHard = document.querySelector("#hard");
+var buttonMessage = document.querySelector(".start__hover-text");
 var game = document.querySelector(".game");
 var boxContainer = document.querySelector(".box-container");
 var gameOverHeading = document.querySelector(".game-over-heading");
 var heading = document.querySelector(".game-header__heading");
 var text = document.querySelector(".game-header__text");
 var message = document.querySelector(".game-header__message");
+var box5 = document.getElementById("5");
+var box6 = document.getElementById("6");
 var messages = ["", "", "good job!", "nice", "ooh someone's a pro!", "is this distracting?", "damn daniel", "impressive", "getting harder now ain't it?", "ooft", "HOW ARE YOU STILL GOING", "i'm bored now", "bye"];
+var hardMessages = ["", "", "BET YOU DIDN'T SEE THAT COMING", "ooft", "this MUST be distracting", "is this distracting?", "I feel like this is distracting", "should I stop?", "HOW ARE YOU STILL GOING", "are you cheating?", "ugh", "bye"];
 var array = [1, 2, 3, 4, 5, 6];
-var shuffled = [];
 var easyArray = array.slice(0, 4);
+var shuffled = [];
 var sallysInputs = [];
 var userInputs = [];
-var level = 0;
-var mode = ""; //generates a "flash" on the chosen box
+var level = 0; //generates a "flash" on the chosen box
 
 var generateFlash = function generateFlash(num) {
   document.getElementById("".concat(num)).classList.add("flash");
   setTimeout(function () {
     document.getElementById("".concat(num)).classList.remove("flash");
   }, 200);
-}; //generates new sally input
+}; //generates a new sally input
 
 
 var sallySays = function sallySays(boxNum) {
@@ -34,7 +37,9 @@ var sallySays = function sallySays(boxNum) {
   level++;
   text.innerHTML = "Level: ".concat(level);
 
-  if (level > 2) {
+  if (boxNum > 4 && level > 1) {
+    message.innerHTML = "".concat(hardMessages[level]);
+  } else if (boxNum <= 4 && level > 2) {
     message.innerHTML = "".concat(messages[level]);
   }
 }; //shuffle array 
@@ -71,6 +76,7 @@ var checkUserInput = function checkUserInput(mode) {
 };
 
 var gameOver = function gameOver() {
+  //reset
   level = 0;
   userInputs = [];
   sallysInputs = []; //styling
@@ -80,7 +86,7 @@ var gameOver = function gameOver() {
   game.classList.add("game-over");
   document.querySelectorAll(".box-container__box").forEach(function (box) {
     box.classList.add("game-over");
-  }); //call start screen or restart screen
+  }); //call start screen
 
   setTimeout(function () {
     start.style.display = "flex";
@@ -124,8 +130,8 @@ function renderBoxes(array) {
         color = "orange";
         break;
 
-      default: // code block
-
+      default:
+        color = "pink";
     }
 
     return "<div class=\"box-container__box ".concat(color, "\"  id=\"").concat(num, "\"></div>");
@@ -173,16 +179,17 @@ var startGame = function startGame(mode) {
       boxContainer.classList.add("easy");
     }
 
-    if (mode === "easy" && document.getElementById("5")) {
-      console.log(document.getElementById("5"));
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
+    if (mode === "easy" && box5) {
+      box5.style.display = "none";
+      box6.style.display = "none";
       boxContainer.classList.add("easy");
-    } else if (mode === "hard") {
+    }
+
+    if (mode === "hard") {
       boxContainer.classList.add("hard");
     }
 
-    if (mode === "hard" && !document.getElementById("5")) {
+    if (mode === "hard" && !box5) {
       renderBoxes(array.slice(4, 6));
       boxContainer.classList.add("hard");
     }
@@ -195,19 +202,21 @@ var startGame = function startGame(mode) {
       sallySays(6);
     }
   }, 800);
-};
+}; //Easy button effects
+
 
 startButtonEasy.addEventListener("mouseover", function () {
-  document.querySelector(".start__hover-text").innerHTML = "you're better than that";
+  buttonMessage.innerHTML = "you're better than that";
 });
 startButtonEasy.addEventListener("mouseout", function () {
-  document.querySelector(".start__hover-text").innerHTML = "";
-});
+  buttonMessage.innerHTML = "";
+}); //Hard button effects
+
 startButtonHard.addEventListener("mouseover", function () {
-  document.querySelector(".start__hover-text").innerHTML = "ooh feeling confident are we?";
+  buttonMessage.innerHTML = "ooh feeling confident are we?";
 });
 startButtonHard.addEventListener("mouseout", function () {
-  document.querySelector(".start__hover-text").innerHTML = "";
+  buttonMessage.innerHTML = "";
 }); //Easy mode
 
 startButtonEasy.addEventListener("click", function () {
